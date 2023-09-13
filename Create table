@@ -1,0 +1,25 @@
+CREATE DATABASE BAITAPQLGV
+GO
+
+CREATE TABLE KHOA (
+makhoa varchar(4) Primary Key,
+tenkhoa Nvarchar(30),
+tongsocb int
+) 
+
+CREATE TABLE GIANG_VIEN (
+magv char(4) Primary Key,
+hogv nvarchar(20),
+tengv nvarchar(10),
+hocvi char(2),
+hocham varchar(3) NULL,
+makhoa varchar(4) 
+)
+
+CREATE TABLE THAN_NHAN 
+( magv CHAR(4),
+  hotentn NVARCHAR(50),
+  ngaysinhtn DATE,
+  moiquanhe NVARCHAR(20),
+  Primary key (magv,hotentn) 
+  )
