@@ -3,23 +3,94 @@ GO
 
 CREATE TABLE KHOA (
 makhoa varchar(4) Primary Key,
-tenkhoa Nvarchar(30),
-tongsocb int
+tenkhoa Nvarchar(30) NOT NULL,
+tongsocb int NOT NULL
 ) 
 
 CREATE TABLE GIANG_VIEN (
 magv char(4) Primary Key,
-hogv nvarchar(20),
-tengv nvarchar(10),
-hocvi char(2),
-hocham varchar(3) NULL,
-makhoa varchar(4) 
+hogv nvarchar(20) NOT NULL,
+tengv nvarchar(10) NOT NULL,
+hocvi char(2) NOT NULL,
+hocham varchar(3),
+makhoa varchar(4) NOT NULL
 )
 
 CREATE TABLE THAN_NHAN 
 ( magv CHAR(4),
   hotentn NVARCHAR(50),
-  ngaysinhtn DATE,
-  moiquanhe NVARCHAR(20),
+  ngaysinhtn DATE NOT NULL,
+  moiquanhe NVARCHAR(20) NOT NULL,
   Primary key (magv,hotentn) 
-  )
+)
+
+CREATE TABLE QLY_KHOA
+( makhoa VARCHAR(4), --mã số của khoa trong trường
+  chucvu CHAR(2), --trưởng khoa ('TK') hoặc phó khoa ('PK')  
+  tungay DATE, --ngày được bổ nhiệm vào chức vụ 
+  magv CHAR(4) NOT NULL,
+  denngay DATE,-- ngày kết thúc chức vụ  
+  Primary Key (makhoa, chucvu,tungay) 
+) 
+
+CREATE TABLE MON_HOC
+( mamh VARCHAR(4) Primary key,
+  tenmh	NVARCHAR(50) NOT NULL,
+  sotinchi INT NOT NULL, 
+  sotietLT  INT NOT NULL,
+  sotietTH INT NOT NULL,
+  makhoa VARCHAR(4) NOT NULL
+)	
+
+CREATE TABLE GIANG_DAY
+( namhoc CHAR(9), 
+  hocky INT, 
+  mamh VARCHAR(4),
+  phutrach CHAR(2),-- lý thuyết ('LT') hoặc thực hành ('TH') 
+  magv CHAR(4) NOT NULL, 
+  Primary key(namhoc, hocky,mamh,phutrach) 
+)
+
+CREATE TABLE THI (
+  namhoc CHAR(9), --có dạng như '2014-2015'
+  hocky INT ,
+  mamh VARCHAR(4),
+  giamthi CHAR(4),
+  ngaythi CHAR (15) NOT NULL,
+  giothi CHAR(8) NOT NULL,
+  phgthi VARCHAR(10) NOT NULL,
+  Primary Key (namhoc, hocky, mamh, giamthi) 
+) 
+
+CREATE TABLE SINH_VIEN ( 
+  masv CHAR(5) Primary Key,
+  hosv NVARCHAR(20) NOT NULL,
+  tensv NVARCHAR (10) NOT NULL,
+  nu BIT NOT NULL, --nếu nữ là 1 và ngược lại 
+  ngaysinh DATE NOT NULL,
+  matinhcp CHAR(2) NOT NULL,
+  tinhtranggd NVARCHAR(2) NOT NULL,
+  makhoa VARCHAR(4) NOT NULL,
+  nhaphoc CHAR(9) NOT NULL, --khóa nhập học, vd '2014-2015'
+  hocbong REAL  NOT NULL
+ ) 
+
+CREATE TABLE DANG_KY 
+( masv CHAR (5), 
+  namhoc CHAR(9),
+  hocky INT,
+  mamh VARCHAR(4), 
+  Primary key(masv, namhoc,hocky,mamh) 
+)
+
+CREATE TABLE KET_QUA (
+  namhoc CHAR(9), 
+  hocky INT,
+  masv CHAR(5),
+  mamh VARCHAR (4),
+  lanthi SMALLINT, -- lần thi 1 hoặc 2 
+  diemLT REAL,
+  diemTH REAL,
+  primary key(namhoc,hocky,masv,mamh,lanthi) 
+) 
+
