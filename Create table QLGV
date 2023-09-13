@@ -76,7 +76,7 @@ CREATE TABLE SINH_VIEN (
   tensv NVARCHAR (10) NOT NULL,
   nu BIT NOT NULL, --nếu nữ là 1 và ngược lại 
   ngaysinh DATE NOT NULL,
-  matinhcp CHAR(2) NOT NULL,
+  matinhtp CHAR(2) NOT NULL,
   tinhtranggd NVARCHAR(2) NOT NULL,
   makhoa VARCHAR(4) NOT NULL,
   nhaphoc CHAR(9) NOT NULL, --khóa nhập học, vd '2014-2015'
