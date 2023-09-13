@@ -1,4 +1,4 @@
-CREATE DATABASE BAITAPQLGV
+CREATE DATABASE QLGV
 GO
 
 CREATE TABLE KHOA (
@@ -13,7 +13,9 @@ hogv nvarchar(20) NOT NULL,
 tengv nvarchar(10) NOT NULL,
 hocvi char(2) NOT NULL,
 hocham varchar(3),
-makhoa varchar(4) NOT NULL
+makhoa varchar(4) NOT NULL,
+CONSTRAINT FK_KHOA_GV 
+FOREIGN KEY (makhoa) REFERENCES KHOA (makhoa)
 )
 
 CREATE TABLE THAN_NHAN 
@@ -30,7 +32,9 @@ CREATE TABLE QLY_KHOA
   tungay DATE, --ngày được bổ nhiệm vào chức vụ 
   magv CHAR(4) NOT NULL,
   denngay DATE,-- ngày kết thúc chức vụ  
-  Primary Key (makhoa, chucvu,tungay) 
+  Primary Key (makhoa, chucvu,tungay), 
+  CONSTRAINT FK_GV_QLKHOA
+  FOREIGN KEY (magv) REFERENCES GIANG_VIEN (magv)
 ) 
 
 CREATE TABLE MON_HOC
@@ -39,7 +43,9 @@ CREATE TABLE MON_HOC
   sotinchi INT NOT NULL, 
   sotietLT  INT NOT NULL,
   sotietTH INT NOT NULL,
-  makhoa VARCHAR(4) NOT NULL
+  makhoa VARCHAR(4) NOT NULL,
+  CONSTRAINT FK_KHOA_MH
+  FOREIGN KEY (makhoa) REFERENCES KHOA (makhoa)
 )	
 
 CREATE TABLE GIANG_DAY
@@ -48,7 +54,9 @@ CREATE TABLE GIANG_DAY
   mamh VARCHAR(4),
   phutrach CHAR(2),-- lý thuyết ('LT') hoặc thực hành ('TH') 
   magv CHAR(4) NOT NULL, 
-  Primary key(namhoc, hocky,mamh,phutrach) 
+  Primary key(namhoc, hocky,mamh,phutrach), 
+  CONSTRAINT FK_GV_GD
+  FOREIGN KEY (magv) REFERENCES GIANG_VIEN (magv)
 )
 
 CREATE TABLE THI (
@@ -72,7 +80,9 @@ CREATE TABLE SINH_VIEN (
   tinhtranggd NVARCHAR(2) NOT NULL,
   makhoa VARCHAR(4) NOT NULL,
   nhaphoc CHAR(9) NOT NULL, --khóa nhập học, vd '2014-2015'
-  hocbong REAL  NOT NULL
+  hocbong REAL  NOT NULL,
+  CONSTRAINT FK_KHOA_SV
+  FOREIGN KEY (makhoa) REFERENCES KHOA (makhoa)
  ) 
 
 CREATE TABLE DANG_KY 
@@ -93,4 +103,3 @@ CREATE TABLE KET_QUA (
   diemTH REAL,
   primary key(namhoc,hocky,masv,mamh,lanthi) 
 ) 
-
