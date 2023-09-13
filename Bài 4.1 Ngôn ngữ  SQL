@@ -37,4 +37,9 @@ FROM KET_QUA
 JOIN SINH_VIEN ON KET_QUA.masv = SINH_VIEN.masv
 WHERE nu = 'FALSE' AND lanthi = '1' AND diemLT ='8' OR diemTH = '8'
 
-
+--4.1.h. Danh sách mã số, họ tên sinh viên và tên những môn học mà những sinh viên có đăng ký học và có kết quả thi. 
+SELECT SINH_VIEN.masv, SINH_VIEN.hosv, SINH_VIEN.tensv, MON_HOC.tenmh
+FROM SINH_VIEN
+JOIN DANG_KY ON SINH_VIEN.masv = DANG_KY.masv
+JOIN KET_QUA ON DANG_KY.masv = KET_QUA.masv AND DANG_KY.mamh = KET_QUA.mamh
+JOIN MON_HOC ON DANG_KY.mamh = MON_HOC.mamh;
