@@ -1,0 +1,36 @@
+--4.1.a Tổng số cán bộ của khoa CNTT 
+SELECT count(*) AS tongsocb 
+FROM GIANG_VIEN 
+WHERE makhoa= 'CNTT'
+
+--4.1.b Số tín chỉ, số tiết lt, số tiết th của môn csdl 
+SELECT sotinchi,sotietLT,sotietTH 
+FROM MON_HOC 
+WHERE tenmh = N'Cơ sở dữ liệu'
+
+--4.1.c Danh sách mã số của giảng viên được phân công giảng dạy lý thuyết ở học kỳ 1 hay học kỳ 2 năm học ‘2014-2015’. 
+SELECT magv  
+FROM GIANG_DAY  
+WHERE phutrach = N'LT'
+
+--4.1.d. Danh sách mã số và họ tên của những sinh viên nữ hay sinh viên thuộc tỉnh có mã là ‘56’. 
+SELECT masv, hosv, tensv  
+FROM SINH_VIEN   
+WHERE nu = 'TRUE' OR matinhtp = '56'
+
+--4.1.e. Danh sách những sinh viên thuộc khoa có mã số là ‘VL’ và nhận học bổng hơn 100 000. 
+SELECT masv, hosv, tensv  
+FROM SINH_VIEN   
+WHERE makhoa = 'VL' AND hocbong > 100000
+
+--4.1.f. Danh sách mã số và tên của những môn học do giảng viên có tên ‘Nguyễn Ngọc Thúy’ phụ trách giảng dạy lý thuyết. 
+--chưa ra kết quả 
+SELECT mamh, tenmh 
+FROM MON_HOC   
+WHERE mamh IN (SELECT mamh  
+	FROM GIANG_DAY  
+	WHERE phutrach = N'LT' AND magv IN (SELECT magv 
+									                    FROM GIANG_VIEN 
+									                    WHERE hogv+tengv = N'Nguyễn Ngọc Thúy'))
+
+                             
