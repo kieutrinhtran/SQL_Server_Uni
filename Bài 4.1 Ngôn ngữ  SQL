@@ -30,7 +30,13 @@ FROM MON_HOC
 WHERE mamh IN (SELECT mamh  
 	FROM GIANG_DAY  
 	WHERE phutrach = N'LT' AND magv IN (SELECT magv 
-									                    FROM GIANG_VIEN 
-									                    WHERE hogv+tengv = N'Nguyễn Ngọc Thúy'))
+					    FROM GIANG_VIEN 
+					    WHERE hogv+tengv = N'Nguyễn Ngọc Thúy'))
 
-                             
+--4.1.g. Danh sách mã số và họ tên của những sinh viên nam có điểm thi lần 1 môn ‘Cơ sở dữ liệu’ là 8 điểm. 
+SELECT KET_QUA.masv, hosv, tensv 
+FROM KET_QUA
+JOIN SINH_VIEN ON KET_QUA.masv = SINH_VIEN.masv
+WHERE nu = 'FALSE' AND lanthi = '1' AND diemLT ='8' OR diemTH = '8'
+
+
