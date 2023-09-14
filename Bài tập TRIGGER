@@ -1,0 +1,55 @@
+--Đối với mỗi công trình, ngày bắt đầu luôn luôn nằm trước (nhỏ hơn) ngày kết thúc.
+CREATE TRIGGER tr_date ON CONG_TRINH
+AFTER INSERT, UPDATE
+AS
+DECLARE @ngaybd date, @ngaykt date;
+SELECT @ngaybd = ngaybd, @ngaykt=ngaykt
+	FROM inserted
+IF @ngaybd > @ngaykt 
+begin
+	PRINT (N'ngày tháng không hợp lệ');
+	ROLLBACK TRANSACTION
+end 
+
+
+--Mức lương tối thiểu của nhân viên là 650 000
+CREATE TRIGGER tr_salary ON NHAN_VIEN
+AFTER INSERT, UPDATE
+AS
+DECLARE @mucluong REAL;
+SELECT @mucluong = mucluong
+	FROM inserted
+IF @mucluong <= 650000 
+	BEGIN
+		PRINT (N'mức lương không hợp lệ');
+		ROLLBACK TRANSACTION
+	END
+
+
+--Mã công trình đã được phân công rồi, không được xóa hoặc thay đổi.
+CREATE TRIGGER tr_xoacongtrinh ON CONG_TRINH
+AFTER DELETE, UPDATE
+AS
+DECLARE @mact char(4);
+SELECT @mact = mact FROM deleted
+IF EXISTS (SELECT * FROM PHAN_CONG
+		WHERE mact=@mact)
+BEGIN
+	PRINT (N'Công trình đã phân công rồi, không được xóa hay thay đổi');
+	ROLLBACK TRANSACTION
+END
+
+
+--Viết trigger để không cho xóa giá trị của khóa chính trong bảng
+CREATE TRIGGER tr_xoakhoachinh_NV ON NHAN_VIEN
+AFTER update
+as
+DECLARE @manv char(3);
+SELECT @manv = manv FROM inserted
+If @manv=''
+BEGIN
+	PRINT (N'không được xóa khóa chính');
+	ROLLback TRANSACTION
+END
+
+
