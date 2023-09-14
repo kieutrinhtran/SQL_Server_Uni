@@ -1,0 +1,34 @@
+--CREATE PROCEDURE PRC_TINHBHXH @gioitinh nvarchar(3)
+--AS
+--BEGIN
+DELETE  FROM BHXH_NAM -- xóa hết dữ liệu cũ trong bảng BHXH_NAM, bảo đảm rằng mỗi lần chạy đoạn chương trình này đều cập nhật dữ liệu mới nhất và không trùng
+
+DECLARE @manv CHAR(3), @honv NVARCHAR(20), @tennv NVARCHAR(10);  -- khai báo các biến chứa giá trị đọc ra từ bảng NHAN_VIEN
+DECLARE @phai  NVARCHAR(3), @mucluong REAL; -- khai báo các biến chứa giá trị đọc ra từ bảng NHAN_VIEN
+
+DECLARE myCursor CURSOR FOR  -- khai báo biến cursor
+SELECT manv, honv, tennv, phai, mucluong --trỏ đến các thuộc tính cần lấy giá trị
+FROM NHAN_VIEN
+
+OPEN myCursor   -- mở biến cursor
+
+FETCH NEXT FROM myCursor INTO @manv, @honv, @tennv, @phai, @mucluong  -- đọc dòng dữ liệu đầu tiên
+
+WHILE @@FETCH_STATUS = 0   --lặp lại thao tác xử lý khi đọc thành công
+BEGIN   
+       
+    if @phai = N'Nam'                                                              -- @gioitinh   
+	  begin
+	   Insert into BHXH_NAM Values(@manv, @honv + ' '+ @tennv, 0.3*@mucluong);
+	  end 
+	FETCH NEXT FROM myCursor INTO @manv, @honv, @tennv, @phai, @mucluong; --đọc dòng tiếp theo
+END   
+
+CLOSE myCursor   --đóng biến cursor
+DEALLOCATE myCursor --giải phóng bộ nhớ
+
+SELECT * FROM BHXH_NAM
+
+--END
+
+--EXEC PRC_TINHBHXH @gioitinh=N'Nữ'
