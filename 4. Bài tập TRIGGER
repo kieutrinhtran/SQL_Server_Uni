@@ -40,6 +40,53 @@ BEGIN
 END
 
 
+--Mỗi công trình không được phân công quá bốn người làm việc.
+CREATE TRIGGER tr_phancong ON PHAN_CONG
+AFTER INSERT, UPDATE
+AS
+	DECLARE @songuoi INT;
+	DECLARE @mact CHAR(4);
+
+	SELECT @mact = mact
+	FROM inserted;
+
+	SELECT @songuoi = COUNT(*)
+	FROM PHAN_CONG
+	WHERE mact = @mact;
+
+	PRINT (@songuoi);
+	IF @songuoi >4
+		BEGIN
+			PRINT (N'Phân công quá số lượng cho phép');
+			ROLLBACK TRANSACTION
+		END
+
+--Trưởng phòng phải làm việc tại chi nhánh mình đang phụ trách.
+CREATE TRIGGER tr_nvphutrach ON CHI_NHANH
+AFTER INSERT, UPDATE
+AS
+	DECLARE @manvptr CHAR(3), @macn CHAR(3);
+	SELECT @manvptr = manvptr, @mavn = macn FROM inserted;
+IF EXISTS (SELECT * FROM NHAN_VIEN NV WHERE NV.manv = @manvptr AND NV.macn <> @macn AND NV.macn IS NOT NULL)
+BEGIN 
+	PRINT (N'thay đổi không hợp lệ');
+	ROLLBACK TRANSACTION 
+END
+
+/**/
+CREATE TRIGGER tr_chinhanh ON NHAN_VIEN
+AFTER UPDATE
+AS 
+DECLARE @macn CHAR(3), @manv CHAR(3);
+SELECT @macn = macn, @manv = manv
+FROM inserted;
+IF EXISTS (SELECT * FROM CHI_NHANH CN WHERE CN.macn <> @macn AND CN.manvptr = @manv)
+BEGIN
+	PRINT (N'thay đổi không hợp lệ');
+	ROLLBACK TRANSACTION
+END
+
+
 --Viết trigger để không cho xóa giá trị của khóa chính trong bảng
 CREATE TRIGGER tr_xoakhoachinh_NV ON NHAN_VIEN
 AFTER update
