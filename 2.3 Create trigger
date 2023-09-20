@@ -1,5 +1,5 @@
 -- Khách hàng chỉ được đặt những hàng hóa có trong danh mục hàng hóa của công ty và số lượng đặt phải nhỏ hơn hay bằng số lượng tồn kho của mặt hàng đó.
-CREATE TRIGGER TRG_KiểmTraDatHang2 ON CHITIET_DH
+CREATE TRIGGER TRG_KiểmTraDatHang ON CHITIET_DH
 AFTER INSERT, UPDATE
 AS
 BEGIN
