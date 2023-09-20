@@ -1,3 +1,4 @@
+USE KDHH
 INSERT INTO HANG_HOA VALUES ('MDM001', N'Modem', N'Cái')
 INSERT INTO HANG_HOA VALUES ('HD0500', N'Đĩa cứng 500 Gb', N'Cái')
 INSERT INTO HANG_HOA VALUES ('HD1000', N'Đĩa cứng 1T', N'Cái')
@@ -111,8 +112,16 @@ INSERT INTO PHIEU_THU VALUES ('PT004', '2012/01/12', 35000000, 'K006')
 INSERT INTO PHIEU_THU VALUES ('PT005', '2012/01/14', 7500000, 'K005')
 INSERT INTO PHIEU_THU VALUES ('PT006', '2012/01/22', 8000000, 'K001')
 
-	
-	
+/* Bảng TON_KHO (Inventory):
+tondauky (Số lượng tồn đầu kỳ của hàng hóa): Thường bằng tổng số lượng tồn cuối kỳ của các mặt hàng từ kỳ trước (nếu có) hoặc có thể được thiết lập ban đầu.
+solgnhap (Tổng số lượng nhập trong kỳ của hàng hóa): Để tính toán, bạn cần theo dõi các phiếu nhập hàng (PHIEU_NHAP) và chi tiết phiếu nhập (CHITIET_PN). Tổng số lượng hàng hóa nhập trong mỗi kỳ có thể được tính bằng cách lấy tổng số lượng hàng hóa từ các chi tiết phiếu nhập có ngày nhập trong kỳ đó.
+solgxuat (Tổng số lượng xuất trong kỳ của hàng hóa): Tương tự, bạn cần theo dõi các đơn đặt hàng (DON_DH) và chi tiết đơn đặt hàng (CHITIET_DH) để tính toán tổng số lượng hàng hóa đã xuất trong kỳ đó.
+Bảng CONG_NO (Accounts Receivable/Payable):
+nodauky (Số dư đầu kỳ): Điều này có thể được thiết lập ban đầu hoặc được tính từ dữ liệu nợ/có của các kỳ trước.
+phsinhno (Tổng tiền đã thu trong kỳ): Tính tổng tiền đã thu từ các phiếu thu (PHIEU_THU) có ngày phát hành trong kỳ đó và chi tiết phiếu thu (CHITIET_THU).
+phsinhco (Tổng tiền đã chi trong kỳ): Tính tổng tiền đã chi từ các phiếu chi (PHIEU_CHI) có ngày phát hành trong kỳ đó và chi tiết phiếu chi (CHITIET_CHI).
+Dữ liệu trong các bảng TON_KHO và CONG_NO nên được cập nhật định kỳ để theo dõi sự thay đổi trong tồn kho và công nợ của công ty.	
+*/	
 
 
 	
