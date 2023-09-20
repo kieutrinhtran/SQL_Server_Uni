@@ -1,0 +1,40 @@
+-- Khách hàng chỉ được đặt những hàng hóa có trong danh mục hàng hóa của công ty và số lượng đặt phải nhỏ hơn hay bằng số lượng tồn kho của mặt hàng đó.
+CREATE TRIGGER TRG_KiểmTraDatHang ON CHITIET_DH
+AFTER INSERT
+AS
+BEGIN
+  DECLARE @sodh CHAR(5);
+  DECLARE @mahh CHAR(6);
+  DECLARE @solghhdh INT;
+ 
+  SELECT @sodh = I.sodh, @mahh = I.mahh, @solghhdh = I.solghhdh
+  FROM inserted I;
+
+  IF NOT EXISTS (
+    SELECT *
+    FROM HANG_HOA H
+    WHERE H.mahh = @mahh
+  )
+  BEGIN
+    RAISERROR('Mặt hàng không tồn tại', 16, 1);
+    ROLLBACK TRANSACTION;
+  END;
+
+  IF @solghhdh > (
+    SELECT solgtonkho = tondauky + solgnhap - solgxuat
+    FROM TON_KHO T
+    WHERE T.namthg = YEAR(GETDATE())
+      AND T.mahh = @mahh
+  )
+  BEGIN
+    RAISERROR('Số lượng đặt vượt quá số lượng tồn kho', 16, 1);
+    ROLLBACK TRANSACTION;
+  END;
+  
+  -- Cập nhật số lượng tồn kho
+
+  UPDATE TON_KHO
+  SET tondauky = tondauky + solgnhap - solgxuat - @solghhdh
+  WHERE namthg = YEAR(GETDATE())
+    AND mahh = @mahh;
+END;
