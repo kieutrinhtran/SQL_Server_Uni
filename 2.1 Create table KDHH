@@ -1,0 +1,99 @@
+CREATE DATABASE KDHH
+GO
+
+CREATE TABLE HANG_HOA (
+mahh CHAR(6) PRIMARY KEY,  --mã số của hàng hóa 
+tenhh NVARCHAR(50) NOT NULL, --tên của hàng hóa
+dvthh NVARCHAR(10) NOT NULL  --đơn vị tính của hàng hóa
+)
+CREATE TABLE KHACH_HANG (
+makh CHAR(4) PRIMARY KEY,--mã số của khách hàng 
+tenkh NVARCHAR(100), --tên của khách hàng 
+diachikh NVARCHAR(100), --địa chỉ của khách hàng 
+dthoaikh NVARCHAR(20) --điện thoại của khách hàng
+)
+CREATE TABLE PHIEU_NHAP (
+sopn CHAR(5) PRIMARY KEY, --số thứ tự của phiếu nhập 
+ngaypn DATE, -- ngày phát hành phiếu nhập (ngày nhập hàng) 
+makh CHAR(4) -- mã số của nhà cung cấp đã bán hàng cho công ty
+)
+CREATE TABLE CHITIET_PN (
+sopn CHAR(5), --số thứ tự của phiếu nhập 
+mahh CHAR(6), -- mã số của hàng hóa được mua từ nhà cung cấp 
+solghhpn INT, -- số lượng mua của hàng hóa 
+thanhtienhhpn REAL, -- thành tiền của hàng hóa được mua
+PRIMARY KEY (sopn, mahh)
+)
+
+CREATE TABLE DON_DH (
+sodh CHAR(5) PRIMARY KEY , -- số thứ tự của đơn đặt hàng 
+ngaydh DATE, -- ngày đặt hàng 
+ngaygiaodk DATE, --ngày giao hàng dự kiến 
+makh CHAR(4) -- mã số của khách đã đặt hàng 
+)
+
+CREATE TABLE CHITIET_DH (
+sodh CHAR(5), --số thứ tự của đơn đặt hàng 
+mahh CHAR(6), -- mã số của hàng hóa được đặt hàng 
+solghhdh INT, --số lượng đặt của hàng hóa (có thể giao nhiều lần cho đủ số lượng đã đặt) 
+sotienhhdh REAL, --thành tiền của hàng hóa được đặt hàng
+PRIMARY KEY (sodh, mahh)
+)
+
+CREATE TABLE PHIEU_GH (
+sogh CHAR(5) PRIMARY KEY , --số thứ tự của phiếu giao hàng 
+ngaygh DATE, -- ngày giao hàng 
+sodh CHAR(5) --số thứ tự của đơn đặt hàng có liên quan
+)
+
+CREATE TABLE CHITIET_GH (
+sogh CHAR(5), --số thứ tự của phiếu giao hàng 
+mahh CHAR(6), --mã số của hàng hóa được giao 
+solghhgh INT, --số lượng giao của hàng hóa (có thể giao nhiều lần cho đủ số lượng đã đặt) 
+PRIMARY KEY (sogh, mahh)
+)
+
+CREATE TABLE HOA_DON(
+sohd CHAR(5) PRIMARY KEY, --số thứ tự của hóa đơn 
+ngayhd DATE, --ngày phát hành hóa đơn 
+tenkhachhang NVARCHAR(100), --khách (vãng lai) mua hàng 
+trigiahd REAL --tổng trị giá của hóa đơn (hóa đơn cũng sẽ được dùng để thay thế cho phiếu thu)
+)
+
+CREATE TABLE CHITIET_HD (
+sohd CHAR(5), --số thứ tự của hóa đơn 
+mahh CHAR(6), --mã số của hàng hóa được mua 
+solghhhd INT, --số lượng được mua của hàng hóa 
+thanhtienhhhd REAL, --thành tiền của hàng hóa được mua
+PRIMARY KEY (sohd, mahh)
+)
+
+CREATE TABLE PHIEU_CHI(
+sopc CHAR(5) PRIMARY KEY, --số thứ tự của phiếu chi 
+ngaypc DATE, --ngày phát hành phiếu chi 
+sotienpc REAL, --tổng số tiền đã chi 
+makh CHAR(4) -- mã số của khách hàng (nhà cung cấp) đã nhận tiền
+)
+
+CREATE TABLE PHIEU_THU (
+sopt CHAR(5) PRIMARY KEY, --số thứ tự của phiếu thu 
+ngaypt DATE, --ngày phát hành phiếu thu 
+sotienpt REAL, --tổng số tiền đã thu 
+makh CHAR(4) --mã số của khách hàng đã trả tiền cho công ty
+)
+CREATE TABLE TON_KHO (
+namthg CHAR(6), --năm tháng (kỳ khai thác) có dạng ‘2010/12’ 
+mahh CHAR(6), -- mã số của hàng hóa đang tồn kho 
+tondauky INT, -- số lượng tồn đầu kỳ của hàng hóa 
+solgnhap INT, -- tổng số lượng nhập (mua) trong kỳ của hàng hóa 
+solgxuat INT, -- tổng số lượng xuất (bán) trong kỳ của hàng hóa 
+PRIMARY KEY (namthg, mahh)
+)
+CREATE TABLE CONG_NO (
+namthg CHAR(6), --năm tháng (kỳ khai thác) có dạng ‘2010/12’ 
+makh CHAR(4), --mã số của khách hàng 
+nodauky REAL, --> 0 nếu công ty nợ khách hàng và ngược lại 
+phsinhno REAL, --tổng tiền đã thu + trị giá hàng đã nhập trong kỳ 
+phsinhco REAL, --tổng tiền đã chi + trị giá hàng đã giao trong kỳ
+PRIMARY KEY (namthg, makh)
+)
