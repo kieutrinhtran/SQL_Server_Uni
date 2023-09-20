@@ -1,5 +1,6 @@
 CREATE DATABASE KDHH
 GO
+USE KDHH
 
 CREATE TABLE HANG_HOA (
 mahh CHAR(6) PRIMARY KEY,  --mã số của hàng hóa 
