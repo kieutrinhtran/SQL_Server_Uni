@@ -1,6 +1,6 @@
 -- Khách hàng chỉ được đặt những hàng hóa có trong danh mục hàng hóa của công ty và số lượng đặt phải nhỏ hơn hay bằng số lượng tồn kho của mặt hàng đó.
-CREATE TRIGGER TRG_KiểmTraDatHang ON CHITIET_DH
-AFTER INSERT
+CREATE TRIGGER TRG_KiểmTraDatHang2 ON CHITIET_DH
+AFTER INSERT, UPDATE
 AS
 BEGIN
   DECLARE @sodh CHAR(5);
@@ -16,7 +16,7 @@ BEGIN
     WHERE H.mahh = @mahh
   )
   BEGIN
-    RAISERROR('Mặt hàng không tồn tại', 16, 1);
+    PRINT (N'Mặt hàng không tồn tại');
     ROLLBACK TRANSACTION;
   END;
 
@@ -27,14 +27,13 @@ BEGIN
       AND T.mahh = @mahh
   )
   BEGIN
-    RAISERROR('Số lượng đặt vượt quá số lượng tồn kho', 16, 1);
+    PRINT (N'Số lượng đặt vượt quá số lượng tồn kho');
     ROLLBACK TRANSACTION;
   END;
   
   -- Cập nhật số lượng tồn kho
-
   UPDATE TON_KHO
   SET tondauky = tondauky + solgnhap - solgxuat - @solghhdh
-  WHERE namthg = YEAR(GETDATE())
+  WHERE namthg = YEAR(GETDATE()) --trả về ngày và giờ của hệ thống mà SQL Server đang chạy. Hàm này trả về giá trị ngày & tháng ở định dạng "yyyy-mm-dd hh:mm:ss.mmm"
     AND mahh = @mahh;
 END;
