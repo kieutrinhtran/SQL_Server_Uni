@@ -8,6 +8,10 @@ ALTER TABLE Production
 ADD CONSTRAINT PK_Production PRIMARY KEY (ProductionCompanyNo, MovieNo);
 
 --Và đặt ràng buộc cho  năm sản xuất của mỗi bộ phim nằm trong khoảng 2010 đến 2020 
+ALTER TABLE Movies 
+ADD CONSTRAINT rb_nam_sx CHECK (Year_pr BETWEEN 2008 AND 2020)
+
+--Kiểm tra ràng buộc
 CREATE TRIGGER MOVIE_YEAR
 ON Movies
 AFTER INSERT, UPDATE
@@ -20,3 +24,5 @@ BEGIN
 	PRINT (N'Năm sản xuất không hợp lệ');
 	ROLLBACK TRANSACTION
 END
+
+
