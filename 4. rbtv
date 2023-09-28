@@ -1,0 +1,22 @@
+ALTER TABLE Production
+ALTER COLUMN ProductionCompanyNo char(2) NOT NULL;
+
+ALTER TABLE Production
+ALTER COLUMN MovieNo char(4) NOT NULL;
+
+ALTER TABLE Production
+ADD CONSTRAINT PK_Production PRIMARY KEY (ProductionCompanyNo, MovieNo);
+
+--Và đặt ràng buộc cho  năm sản xuất của mỗi bộ phim nằm trong khoảng 2010 đến 2020 
+CREATE TRIGGER MOVIE_YEAR
+ON Movies
+AFTER INSERT, UPDATE
+AS
+DECLARE @Year_pr INT;
+SELECT @Year_pr = Year_pr
+FROM inserted
+IF @Year_pr < '2010' OR @Year_pr > '2020'
+BEGIN
+	PRINT (N'Năm sản xuất không hợp lệ');
+	ROLLBACK TRANSACTION
+END
