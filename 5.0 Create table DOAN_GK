@@ -1,6 +1,7 @@
 CREATE DATABASE DO_AN
 GO
 USE DO_AN
+
 -- Tạo bảng NGUOI_HIEN
 CREATE TABLE NGUOI_HIEN (
     ma_nguoi_hien CHAR(6) PRIMARY KEY,
@@ -21,7 +22,13 @@ CREATE TABLE TUI_MAU (
     the_tich REAL NOT NULL,
     ngay_hien_mau DATE NOT NULL,
     can_nang REAL NOT NULL,
-    ngay_nhan_mau DATE
+    ngay_nhan_mau DATE,
+	ma_nguoi_hien CHAR (6), --Khóa ngoại chỉ đến bảng NGUOI_HIEN
+    ma_kho CHAR(6), --Khóa ngoại chỉ đến bảng KHO
+    ma_bv CHAR(6), --Khóa ngoại chỉ đến bảng BENH_VIEN
+	CONSTRAINT FK_NH_MAU FOREIGN KEY (ma_nguoi_hien) REFERENCES NGUOI_HIEN (ma_nguoi_hien),
+	CONSTRAINT FK_KHO_MAU FOREIGN KEY (ma_kho) REFERENCES KHO (ma_kho),
+	CONSTRAINT FK_BV_MAU FOREIGN KEY (ma_bv) REFERENCES BENH_VIEN (ma_bv)
 );
 
 -- Tạo bảng BENH_VIEN
@@ -48,7 +55,9 @@ CREATE TABLE NHAN_VIEN (
     ma_nv CHAR(6) PRIMARY KEY,
     hoten NVARCHAR(100) NOT NULL,
     sdt VARCHAR(10) NOT NULL,
-    makho_ptr CHAR(6)
+    makho_ptr CHAR(6),
+	ma_kho CHAR(6) --Khóa ngoại chỉ đến bảng KHO,
+	CONSTRAINT FK_KHO_NV FOREIGN KEY (ma_kho) REFERENCES KHO (ma_kho)
 );
 
 -- Tạo bảng KHO
