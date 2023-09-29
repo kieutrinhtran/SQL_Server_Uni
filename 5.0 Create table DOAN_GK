@@ -20,15 +20,21 @@ CREATE TABLE TUI_MAU (
     hsd DATE NOT NULL,
     tinh_trang BIT NOT NULL,
     the_tich REAL NOT NULL,
+	can_nang REAL NOT NULL,
     ngay_hien_mau DATE NOT NULL,
-    can_nang REAL NOT NULL,
     ngay_nhan_mau DATE,
-    ma_nguoi_hien CHAR (6), --Khóa ngoại chỉ đến bảng NGUOI_HIEN
+	ma_nguoi_hien CHAR (6) NOT NULL, --Khóa ngoại chỉ đến bảng NGUOI_HIEN
+	ma_nguoi_nhan CHAR(6), --Khóa ngoại chỉ đến bảng NGUOI_NHAN 
     ma_kho CHAR(6), --Khóa ngoại chỉ đến bảng KHO
     ma_bv CHAR(6), --Khóa ngoại chỉ đến bảng BENH_VIEN
-	CONSTRAINT FK_NH_MAU FOREIGN KEY (ma_nguoi_hien) REFERENCES NGUOI_HIEN (ma_nguoi_hien),
-	CONSTRAINT FK_KHO_MAU FOREIGN KEY (ma_kho) REFERENCES KHO (ma_kho),
-	CONSTRAINT FK_BV_MAU FOREIGN KEY (ma_bv) REFERENCES BENH_VIEN (ma_bv)
+	CONSTRAINT FK_NH_MAU 
+	FOREIGN KEY (ma_nguoi_hien) REFERENCES NGUOI_HIEN (ma_nguoi_hien),
+	CONSTRAINT FK_NN_MAU 
+	FOREIGN KEY (ma_nguoi_nhan) REFERENCES NGUOI_NHAN (ma_nguoi_nhan),
+	CONSTRAINT FK_KHO_MAU 
+	FOREIGN KEY (ma_kho) REFERENCES KHO (ma_kho),
+	CONSTRAINT FK_BV_MAU 
+	FOREIGN KEY (ma_bv) REFERENCES BENH_VIEN (ma_bv)
 );
 
 -- Tạo bảng BENH_VIEN
@@ -55,14 +61,26 @@ CREATE TABLE NHAN_VIEN (
     ma_nv CHAR(6) PRIMARY KEY,
     hoten NVARCHAR(100) NOT NULL,
     sdt VARCHAR(10) NOT NULL,
-    makho_ptr CHAR(6),
-    ma_kho CHAR(6) --Khóa ngoại chỉ đến bảng KHO,
-    CONSTRAINT FK_KHO_NV 
-    FOREIGN KEY (ma_kho) REFERENCES KHO (ma_kho)
+	gioi_tinh NVARCHAR(3) NOT NULL,
+	ngay_sinh DATE NOT NULL,
+	ma_kho CHAR(6) --Khóa ngoại chỉ đến bảng KHO,
+	CONSTRAINT FK_KHO_NV 
+	FOREIGN KEY (ma_kho) REFERENCES KHO (ma_kho)
 );
 
 -- Tạo bảng KHO
 CREATE TABLE KHO (
     ma_kho CHAR(6) PRIMARY KEY,
-    ten_kho NVARCHAR(100),
+    ten_kho NVARCHAR(100) NOT NULL,
+	manv_ptr CHAR(6) NOT NULL
+);
+-- Tạo bảng CUNG_CAP
+CREATE TABLE CUNG_CAP (
+	ma_kho CHAR(6) PRIMARY KEY,--Khóa chính của bảng CUNG_CAP được truy vấn từ bảng KHO
+	ma_bv CHAR(6) PRIMARY KEY--Khóa chính của bảng CUNG_CAP được truy vấn từ bảng BENH_VIEN
+);
+-- Tạo bảng NHAN_MAU
+CREATE TABLE NHAN_MAU (
+	ma_bv CHAR(6)--Khóa chính của bảng NHAN_MAU được truy vấn từ bảng BENH_VIEN
+	ma_nguoi_nhan CHAR(6)--Khóa chính của bảng NHAN_MAU được truy vấn từ bảng NGUOI_NHAN 
 );
