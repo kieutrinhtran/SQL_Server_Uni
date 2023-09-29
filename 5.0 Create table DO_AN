@@ -49,6 +49,7 @@ CREATE TABLE NGUOI_NHAN (
     cccd CHAR(12) NOT NULL,
     sdt VARCHAR(10) NOT NULL,
     gioi_tinh NVARCHAR(3) NOT NULL,
+	ngay_sinh DATE NOT NULL,
     nhom_mau VARCHAR(3) NOT NULL,
     dia_chi NVARCHAR(100)
 );
