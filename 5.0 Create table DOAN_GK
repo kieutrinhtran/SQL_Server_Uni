@@ -1,0 +1,60 @@
+CREATE DATABASE DOAN_GK
+GO
+USE DOAN_GK
+
+USE DOAN_GK
+-- Tạo bảng NGUOI_HIEN
+CREATE TABLE NGUOI_HIEN (
+    ma_nguoi_hien CHAR(6) PRIMARY KEY,
+    hoten NVARCHAR(100) NOT NULL,
+    cccd CHAR(12) NOT NULL,
+    sdt VARCHAR(10) NOT NULL,
+    ngay_sinh DATE NOT NULL,
+    gioi_tinh NVARCHAR(3) NOT NULL,
+    nhom_mau VARCHAR(3) NOT NULL,
+    dia_chi NVARCHAR(100)
+);
+
+-- Tạo bảng TUI_MAU
+CREATE TABLE TUI_MAU (
+    ma_mau CHAR(6) PRIMARY KEY,
+    hsd DATE NOT NULL,
+    tinh_trang BIT NOT NULL,
+    the_tich REAL NOT NULL,
+    ngay_hien_mau DATE NOT NULL,
+    can_nang REAL NOT NULL,
+    ngay_nhan_mau DATE
+);
+
+-- Tạo bảng BENH_VIEN
+CREATE TABLE BENH_VIEN (
+    ma_bv CHAR(6) PRIMARY KEY,
+    ten_bv NVARCHAR(100) NOT NULL,
+    dia_chi NVARCHAR(100) NOT NULL,
+    sdt VARCHAR(10) NOT NULL
+);
+
+-- Tạo bảng NGUOI_NHAN
+CREATE TABLE NGUOI_NHAN (
+    ma_nguoi_nhan CHAR(6) PRIMARY KEY,
+    hoten NVARCHAR(100) NOT NULL,
+    cccd CHAR(12) NOT NULL,
+    sdt VARCHAR(10) NOT NULL,
+    gioi_tinh NVARCHAR(3) NOT NULL,
+    nhom_mau VARCHAR(3) NOT NULL,
+    dia_chi NVARCHAR(100)
+);
+
+-- Tạo bảng NHAN_VIEN
+CREATE TABLE NHAN_VIEN (
+    ma_nv CHAR(6) PRIMARY KEY,
+    hoten NVARCHAR(100) NOT NULL,
+    sdt VARCHAR(10) NOT NULL,
+    makho_ptr CHAR(6)
+);
+
+-- Tạo bảng KHO
+CREATE TABLE KHO (
+    ma_kho CHAR(6) PRIMARY KEY,
+    ten_kho NVARCHAR(100),
+);
