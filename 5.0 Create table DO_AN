@@ -7,13 +7,12 @@ CREATE TABLE NGUOI_HIEN (
     ma_nguoi_hien CHAR(6) PRIMARY KEY,
     hoten NVARCHAR(100) NOT NULL,
     cccd CHAR(12) NOT NULL,
-    sdt VARCHAR(10) NOT NULL,
+    sdt INT NOT NULL,
     ngay_sinh DATE NOT NULL,
     gioi_tinh NVARCHAR(3) NOT NULL,
     nhom_mau VARCHAR(3) NOT NULL,
     dia_chi NVARCHAR(100)
 );
-
 -- Tạo bảng TUI_MAU
 CREATE TABLE TUI_MAU (
     ma_mau CHAR(6) PRIMARY KEY,
@@ -26,17 +25,8 @@ CREATE TABLE TUI_MAU (
     ma_nguoi_hien CHAR (6) NOT NULL, --Khóa ngoại chỉ đến bảng NGUOI_HIEN
     ma_nguoi_nhan CHAR(6), --Khóa ngoại chỉ đến bảng NGUOI_NHAN 
     ma_kho CHAR(6), --Khóa ngoại chỉ đến bảng KHO
-    ma_bv CHAR(6), --Khóa ngoại chỉ đến bảng BENH_VIEN
-	CONSTRAINT FK_NH_MAU 
-	FOREIGN KEY (ma_nguoi_hien) REFERENCES NGUOI_HIEN (ma_nguoi_hien),
-	CONSTRAINT FK_NN_MAU 
-	FOREIGN KEY (ma_nguoi_nhan) REFERENCES NGUOI_NHAN (ma_nguoi_nhan),
-	CONSTRAINT FK_KHO_MAU 
-	FOREIGN KEY (ma_kho) REFERENCES KHO (ma_kho),
-	CONSTRAINT FK_BV_MAU 
-	FOREIGN KEY (ma_bv) REFERENCES BENH_VIEN (ma_bv)
+    ma_bv CHAR(3), --Khóa ngoại chỉ đến bảng BENH_VIEN
 );
-
 -- Tạo bảng BENH_VIEN
 CREATE TABLE BENH_VIEN (
     ma_bv CHAR(3) PRIMARY KEY,
@@ -64,8 +54,6 @@ CREATE TABLE NHAN_VIEN (
     gioi_tinh NVARCHAR(3) NOT NULL,
     ngay_sinh DATE NOT NULL,
     ma_kho CHAR(6) --Khóa ngoại chỉ đến bảng KHO,
-	CONSTRAINT FK_KHO_NV 
-	FOREIGN KEY (ma_kho) REFERENCES KHO (ma_kho)
 );
 
 -- Tạo bảng KHO
@@ -76,11 +64,27 @@ CREATE TABLE KHO (
 );
 -- Tạo bảng CUNG_CAP
 CREATE TABLE CUNG_CAP (
-	ma_kho CHAR(6) PRIMARY KEY,--Khóa chính của bảng CUNG_CAP được truy vấn từ bảng KHO
-	ma_bv CHAR(6) PRIMARY KEY--Khóa chính của bảng CUNG_CAP được truy vấn từ bảng BENH_VIEN
+    ma_kho CHAR(6),--Khóa chính của bảng CUNG_CAP được truy vấn từ bảng KHO
+    ma_bv CHAR(6)--Khóa chính của bảng CUNG_CAP được truy vấn từ bảng BENH_VIEN
+    PRIMARY KEY(ma_kho,ma_bv)
 );
 -- Tạo bảng NHAN_MAU
 CREATE TABLE NHAN_MAU (
-	ma_bv CHAR(6),--Khóa chính của bảng NHAN_MAU được truy vấn từ bảng BENH_VIEN
-	ma_nguoi_nhan CHAR(6)--Khóa chính của bảng NHAN_MAU được truy vấn từ bảng NGUOI_NHAN 
+    ma_bv CHAR(6),--Khóa chính của bảng NHAN_MAU được truy vấn từ bảng BENH_VIEN
+    ma_nguoi_nhan CHAR(6)--Khóa chính của bảng NHAN_MAU được truy vấn từ bảng NGUOI_NHAN 
 );
+
+--Tạo ràng buộc khóa ngoại
+ALTER TABLE TUI_MAU ADD 
+	CONSTRAINT FK_NH_MAU 
+	FOREIGN KEY (ma_nguoi_hien) REFERENCES NGUOI_HIEN (ma_nguoi_hien),
+	CONSTRAINT FK_NN_MAU 
+	FOREIGN KEY (ma_nguoi_nhan) REFERENCES NGUOI_NHAN (ma_nguoi_nhan),
+	CONSTRAINT FK_KHO_MAU 
+	FOREIGN KEY (ma_kho) REFERENCES KHO (ma_kho),
+	CONSTRAINT FK_BV_MAU 
+	FOREIGN KEY (ma_bv) REFERENCES BENH_VIEN (ma_bv)
+
+ALTER TABLE NHAN_VIEN ADD 
+	CONSTRAINT FK_KHO_NV 
+	FOREIGN KEY (ma_kho) REFERENCES KHO (ma_kho)
