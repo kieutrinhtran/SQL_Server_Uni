@@ -1,64 +1,87 @@
--- Cài định dạng ngày là dd/mm/yyyy 
-SET DATEFORMAT dmy;
-
-INSERT INTO KHO VALUES ('K01', N'Kho A', 'NV0002')
-INSERT INTO KHO VALUES ('K02', N'Kho B', 'NV0003')
-INSERT INTO KHO VALUES ('K03', N'Kho C', 'NV0009')
-INSERT INTO KHO VALUES ('K04', N'Kho D', 'NV0005')
-INSERT INTO KHO VALUES ('K05', N'Kho E', 'NV0007')
-
-INSERT INTO NHAN_VIEN VALUES ('NV0001', N'Phạm Thiên Thư', '0655265432', N'Nữ', '28/01/1990', 'K03')
-INSERT INTO NHAN_VIEN VALUES ('NV0002', N'Hiếu Quan Minh', '0655265433', N'Nam', '19/05/2001', 'K01')
-INSERT INTO NHAN_VIEN VALUES ('NV0003', N'Lê Thu Thưởng', '0655265434', N'Nam', '04/04/1991', 'K02')
-INSERT INTO NHAN_VIEN VALUES ('NV0004', N'Kiều Văn Lâu', '0655265435', N'Nam', '03/08/1997', 'K04')
-INSERT INTO NHAN_VIEN VALUES ('NV0005', N'Hoàng Nhật Tuệ', '0655265436', N'Nữ', '10/08/1994', 'K05')
-INSERT INTO NHAN_VIEN VALUES ('NV0006', N'Lưu Hoàng Anh', '0655265437', N'Nam', '06/05/1994', 'K02')
-INSERT INTO NHAN_VIEN VALUES ('NV0007', N'Tiêu Hương Lúa', '0655265438', N'Nữ', '20/04/1999', 'K05')
-INSERT INTO NHAN_VIEN VALUES ('NV0008', N'Cát Như Quyên', '0655265439', N'Nữ', '02/12/1996', 'K02')
-INSERT INTO NHAN_VIEN VALUES ('NV0009', N'Trịnh Thanh Trà', '0655265440', N'Nữ', '08/08/1999', 'K03')
-
-INSERT INTO NGUOI_HIEN VALUES ('NH0001', N'Bùi Phương Thảo', '079685412358', '0946264371', '17/02/2004', N'Nữ', 'A+', N'Quận 10')
-INSERT INTO NGUOI_HIEN VALUES ('NH0002', N'Nguyễn Ngọc An', '079685412359', '0835385728', '04/04/1999', N'Nữ', 'A-', N'Quận Tân Bình')
-INSERT INTO NGUOI_HIEN VALUES ('NH0003', N'Phạm Quốc Nam', '079685412360', '0358425829', '28/10/2003', N'Nam', 'AB+', N'Quận 8')
-INSERT INTO NGUOI_HIEN VALUES ('NH0004', N'Nguyễn Tuyết Hạ', '079685412361', '0935357828', '19/06/1992', N'Nữ', 'B+', N'Quận 10')
-INSERT INTO NGUOI_HIEN VALUES ('NH0005', N'Trần Minh Nghĩa', '079685412362', '0906284628', '21/03/1989', N'Nam', 'O+', N'Quận Gò Vấp')
-INSERT INTO NGUOI_HIEN VALUES ('NH0006', N'Phạm Thiên Thủy', '079685412363', '0935758274', '17/09/1997', N'Nữ', 'A+', N'Quận 3')
-INSERT INTO NGUOI_HIEN VALUES ('NH0007', N'Lưu Thu Giang', '079685412364', '0863829428', '23/02/1995', N'Nữ', 'A-', N'Quận Bình Tân')
-INSERT INTO NGUOI_HIEN VALUES ('NH0008', N'Trần Đức Minh ', '079685412365', '0387394729', '05/08/2001', N'Nam', 'B-', N'Quận 5')
-INSERT INTO NGUOI_HIEN VALUES ('NH0009', N'Huỳnh Gia Huy', '079685412366', '0938592744', '30/07/1991', N'Nam', 'AB-', N'Quận 10')
-INSERT INTO NGUOI_HIEN VALUES ('NH0010', N'Trương Minh Thư', '079685412367', '0906847264', '25/12/2002', N'Nữ', 'O-', N'Quận Phú Nhuận')
-
-INSERT INTO TUI_MAU VALUES ('MM0001', '02/09/2023', 1, 350, '29/07/2023', 50, '15/08/2023', 'NH0005', 'NN0003', 'K03', '002')
-INSERT INTO TUI_MAU VALUES ('MM0002', '01/11/2023', 0, 250, '27/09/2023', 53, 'NULL', 'NH0007', 'NULL', 'K02', '005')
-INSERT INTO TUI_MAU VALUES ('MM0003', '29/09/2023', 1, 450, '25/08/2023', 73, '20/09/2023', 'NH0001', 'NN0001', 'K03', '003')
-INSERT INTO TUI_MAU VALUES ('MM0004', '05/03/2023', 1, 450, '29/01/2023', 69, '05/02/2023', 'NH0010', 'NN0006', 'K05', '003')
-INSERT INTO TUI_MAU VALUES ('MM0005', '18/09/2023', 1, 250, '14/08/2023', 46, '10/09/2023', 'NH0008', 'NN0010', 'K01', '001')
-INSERT INTO TUI_MAU VALUES ('MM0006', '16/10/2023', 1, 350, '11/09/2023', 66, '01/10/2023', 'NH0002', 'NN0002', 'K04', '005')
-INSERT INTO TUI_MAU VALUES ('MM0007', '03/09/2023', 0, 250, '30/07/2023', 72, 'NULL', 'NH0006', 'NULL', 'K02', '004')
-INSERT INTO TUI_MAU VALUES ('MM0008', '04/11/2023', 0, 250, '30/09/2023', 54, 'NULL', 'NH0004', 'NULL', 'K02', '002')
-INSERT INTO TUI_MAU VALUES ('MM0009', '06/11/2023', 0, 350, '02/10/2023', 43, 'NULL', 'NH0003', 'NULL', 'K05', '002')
-INSERT INTO TUI_MAU VALUES ('MM0010', '07/11/2023', 1, 450, '03/10/2023', 68, '04/10/2023', 'NH0010', 'NN008', 'K02', '003')
-
-INSERT INTO NGUOI_NHAN VALUES ('NN0001', N'Hoàng Thu Minh', '079203888451', '0633627452', N'Nam', '23/04/2011', N'A+', N'Quận 7')
-INSERT INTO NGUOI_NHAN VALUES ('NN0002', N'Lê Hoàng An', '079203888452', '0633627453', N'Nam', '08/02/2014', N'A-', N'Quận Bình Tân')
-INSERT INTO NGUOI_NHAN VALUES ('NN0003', N'Phạm Thư Kỳ', '079203888453', '0633627454', N'Nữ', '07/06/1996', N'B+', N'Quận 12')
-INSERT INTO NGUOI_NHAN VALUES ('NN0004', N'Mã Văn Kiên', '079203888454', '0633627455', N'Nam', '18/09/1965', N'AB-', N'Quận Bình Chánh')
-INSERT INTO NGUOI_NHAN VALUES ('NN0005', N'Bạch Thái An', '079203888455', '0633627456', N'Nam', '12/03/1969', N'AB+', N'Quận Bình Chánh')
-INSERT INTO NGUOI_NHAN VALUES ('NN0006', N'Lâm Huy Tưởng', '079203888456', '0633627457', N'Nữ', '14/04/1971', N'O-', N'Quận 8')
-INSERT INTO NGUOI_NHAN VALUES ('NN0007', N'Đoàn Như Ý', '079203888457', '0633627458', N'Nữ', '02/12/2015', N'O+', N'Quận 6')
-INSERT INTO NGUOI_NHAN VALUES ('NN0008', N'Võ Kiều Trang', '079203888458', '0633627459', N'Nữ', '23/11/1958', N'B-', N'Quận 11 ')
-INSERT INTO NGUOI_NHAN VALUES ('NN0009', N'Tô Liên Hạ', '079203888459', '0633627460', N'Nam', '17/12/1980', N'A+', N'Quận 9')
-INSERT INTO NGUOI_NHAN VALUES ('NN0010', N'Hạ Minh Dương', '079203888460', '0633627461', N'Nam', '18/11/1985', N'B-', N'Quận Thủ Đức')
-
-INSERT INTO BENH_VIEN VALUES ('001', N'Bệnh viên Từ Dũ', N'Quận 3', '02838330549')
-INSERT INTO BENH_VIEN VALUES ('002', N'Bệnh viện Nhi đồng 1', N'Quận 10', '02838300718')
-INSERT INTO BENH_VIEN VALUES ('003', N'Bệnh viện Nhân dân 115', N'Quận 5', '02838300719')
-INSERT INTO BENH_VIEN VALUES ('004', N'Bệnh viện Nhi đồng 2', N'Quận 8', '02838300720')
-INSERT INTO BENH_VIEN VALUES ('005', N'Bệnh viện Quân y 175', N'Quận Gò Vấp', '02838300721')
-
-INSERT INTO NHAN_VIEN VALUES ('K01', '001')
-INSERT INTO NHAN_VIEN VALUES ('K02', '002')
-INSERT INTO NHAN_VIEN VALUES ('K03', '003')
-INSERT INTO NHAN_VIEN VALUES ('K04', '004')
-INSERT INTO NHAN_VIEN VALUES ('K05', '005')
-
+USE DO_AN 
+INSERT INTO KHO (ma_kho, ten_kho, manv_ptr)
+VALUES 
+	('K01', N'Kho A', 'NV0002'),
+	('K02', N'Kho B', 'NV0003'),
+	('K03', N'Kho C', 'NV0009'),
+	('K04', N'Kho D', 'NV0005'),
+	('K05', N'Kho E', 'NV0007');
+INSERT INTO NHAN_VIEN (ma_nv, hoten, sdt, gioi_tinh, ngay_sinh, ma_kho)
+VALUES 
+	('NV0001', N'Phạm Thiên Thư', '0655265432', N'Nữ', '1990-01-28', 'K03'),
+	('NV0002', N'Hiếu Quan Minh', '0655265433', N'Nam', '2001-05-19', 'K01'),
+	('NV0003', N'Lê Thu Thưởng', '0655265434', N'Nam', '1991-04-04', 'K02'),
+	('NV0004', N'Kiều Văn Lâu', '0655265435', N'Nam', '1997-08-03', 'K04'),
+	('NV0005', N'Hoàng Nhật Tuệ', '0655265436', N'Nữ', '1994-08-10', 'K05'),
+	('NV0006', N'Lưu Hoàng Anh', '0655265437', N'Nam', '1994-05-06', 'K02'),
+	('NV0007', N'Tiêu Hương Lúa', '0655265438', N'Nữ', '1999-04-20', 'K05'),
+	('NV0008', N'Cát Như Quyên', '0655265439', N'Nữ', '1996-12-02', 'K02'),
+	('NV0009', N'Trịnh Thanh Trà', '0655265440', N'Nữ', '1999-08-08', 'K03');
+INSERT INTO NGUOI_HIEN (ma_nguoi_hien, hoten, cccd, sdt, ngay_sinh, gioi_tinh, nhom_mau, dia_chi)
+VALUES 
+	('NH0001', N'Bùi Phương Thảo', '079685412358', '0946264371', '2004-02-17', N'Nữ', 'A+', N'Quận 10'),
+	('NH0002', N'Nguyễn Ngọc An', '079685412359', '0835385728', '1999-04-04', N'Nữ', 'A-', N'Quận Tân Bình'),
+	('NH0003', N'Phạm Quốc Nam', '079685412360', '0358425829', '2003-10-28', N'Nam', 'AB+', N'Quận 8'),
+	('NH0004', N'Nguyễn Tuyết Hạ', '079685412361', '0935357828', '1992-06-19', N'Nữ', 'B+', N'Quận 10'),
+	('NH0005', N'Trần Minh Nghĩa', '079685412362', '0906284628', '1989-03-21', N'Nam', 'O+', N'Quận Gò Vấp'),
+	('NH0006', N'Phạm Thiên Thủy', '079685412363', '0935758274', '1997-09-17', N'Nữ', 'A+', N'Quận 3'),
+	('NH0007', N'Lưu Thu Giang', '079685412364', '0863829428', '1995-02-23', N'Nữ', 'A-', N'Quận Bình Tân'),
+	('NH0008', N'Trần Đức Minh ', '079685412365', '0387394729', '2001-08-05', N'Nam', 'B-', N'Quận 5'),
+	('NH0009', N'Huỳnh Gia Huy', '079685412366', '0938592744', '1991-07-30', N'Nam', 'AB-', N'Quận 10'),
+	('NH0010', N'Trương Minh Thư', '079685412367', '0906847264', '2002-12-25', N'Nữ', 'O-', N'Quận Phú Nhuận'),
+	('NH0011', N'Huỳnh Hạ Dương', '079685412368', '0906859645', '2002-05-26', N'Nam', 'A+', N'Quận 10'),
+	('NH0012', N'Trương Kiến Minh', '079685412369', '0989654646', '2000-07-27', N'Nam', 'O+', N'Quận 11');
+--The INSERT statement conflicted with the FOREIGN KEY constraint "FK_NN_MAU". The conflict occurred in database "DO_AN", table "dbo.NGUOI_NHAN", column 'ma_nguoi_nhan'
+INSERT INTO TUI_MAU (ma_mau, tinh_trang, the_tich, can_nang, ngay_hien_mau, ngay_nhan_mau, ma_nguoi_hien, ma_nguoi_nhan, ma_kho)
+VALUES
+	('MM0001', '1', 350, 50, 2023-07-29, '2023-08-15', 'NH0005', 'NN0003', 'K03'),
+	('MM0002', '0', 250, 53, 2023-09-27, NULL, 'NH0007', NULL, 'K02'),
+	('MM0003', '1', 450, 73, 2023-08-25, '2023-09-20', 'NH0001', 'NN0001', 'K03'),
+	('MM0004', '1', 450, 69, 2023-01-29, '2023-02-05', 'NH0010', 'NN0006', 'K05'),
+	('MM0005', '1', 250, 46, 2023-08-14, '2023-09-10', 'NH0008', 'NN0010', 'K01'),
+	('MM0006', '1', 350, 66, 2023-09-11, '2023-10-01', 'NH0002', 'NN0002', 'K04'),
+	('MM0007', '0', 250, 72, 2023-07-30, NULL, 'NH0006', NULL, 'K02'),
+	('MM0008', '1', 250, 54, 2023-09-30, '2023-11-07', 'NH0004', 'NN0007', 'K02'),
+	('MM0009', '1', 350, 43, 2023-10-02, '2023-10-15', 'NH0003', 'NN0005', 'K05'),
+	('MM0010', '1', 450, 68, 2023-10-03, '2023-10-04', 'NH0010', 'NN0008', 'K02'),
+	('MM0011', '1', 250, 38, 2023-09-28, '2023-10-05', 'NH0011', 'NN0009', 'K03'),
+	('MM0012', '1', 350, 40, 2023-09-24, '2023-10-15', 'NH0012', 'NN0004', 'K04');
+INSERT INTO NGUOI_NHAN (ma_nguoi_nhan, hoten, cccd, sdt, gioi_tinh, ngay_sinh, nhom_mau, dia_chi)
+VALUES 
+	('NN0001', N'Hoàng Thu Minh', '079203888451', '0633627452', N'Nam', '2001-04-23', N'A+', N'Quận 7'),
+	('NN0002', N'Lê Hoàng An', '079203888452', '0633627453', N'Nam', '2014-02-08', N'A-', N'Quận Bình Tân'),
+	('NN0003', N'Phạm Thư Kỳ', '079203888453', '0633627454', N'Nữ', '1996-06-07', N'B+', N'Quận 12'),
+	('NN0004', N'Mã Văn Kiên', '079203888454', '0633627455', N'Nam', '1965-09-18', N'AB-', N'Quận Bình Chánh'),
+	('NN0005', N'Bạch Thái An', '079203888455', '0633627456', N'Nam', '1969-03-12', N'AB+', N'Quận Bình Chánh'),
+	('NN0006', N'Lâm Huy Tưởng', '079203888456', '0633627457', N'Nữ', '1971-04-14', N'O-', N'Quận 8'),
+	('NN0007', N'Đoàn Như Ý', '079203888457', '0633627458', N'Nữ', '2005-12-02', N'AB+', N'Quận 6'),
+	('NN0008', N'Võ Kiều Trang', '079203888458', '0633627459', N'Nữ', '1958-11-23', N'B-', N'Quận 11 '),
+	('NN0009', N'Tô Liên Hạ', '079203888459', '0633627460', N'Nam', '1980-12-17', N'AB+', N'Quận 9'),
+	('NN0010', N'Hạ Minh Dương', '079203888460', '0633627461', N'Nam', '1985-11-18', N'B-', N'Quận Thủ Đức');
+INSERT INTO BENH_VIEN (ma_bv, ten_bv, dia_chi, sdt)
+VALUES 
+	('001', N'Bệnh viên Từ Dũ', N'Quận 3', '02838330549'),
+	('002', N'Bệnh viện Nhi đồng 1', N'Quận 10', '02838300718'),
+	('003', N'Bệnh viện Nhân dân 115', N'Quận 5', '02838300719'),
+	('004', N'Bệnh viện Nhi đồng 2', N'Quận 8', '02838300720'),
+	('005', N'Bệnh viện Quân y 175', N'Quận Gò Vấp', '02838300721');
+INSERT INTO CUNG_CAP (ma_kho, ma_bv)
+VALUES 
+	('K03', '001'),
+	('K03', '002'),
+	('K04', '003'),
+	('K01', '004'),
+	('K05', '005'),
+	('K02', '004');
+INSERT INTO NHAN_MAU (ma_nguoi_nhan, ma_bv)
+VALUES 
+	('NN0001', '002'),
+	('NN0002', '003'),
+	('NN0003', '002'),
+	('NN0004', '003'),
+	('NN0005', '005'),
+	('NN0006', '005'),
+	('NN0007', '004'),
+	('NN0008', '004'),
+	('NN0009', '001'),
+	('NN0010', '004')
