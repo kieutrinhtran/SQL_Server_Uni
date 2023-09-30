@@ -40,13 +40,12 @@ CREATE TABLE TUI_MAU (
     ma_nguoi_hien CHAR (6) NOT NULL, --Khóa ngoại chỉ đến bảng NGUOI_HIEN
     ma_nguoi_nhan CHAR(6), --Khóa ngoại chỉ đến bảng NGUOI_NHAN 
     ma_kho CHAR(6), --Khóa ngoại chỉ đến bảng KHO
-    ma_bv CHAR(3), --Khóa ngoại chỉ đến bảng BENH_VIEN
 );
 -- Tạo bảng NGUOI_NHAN
 CREATE TABLE NGUOI_NHAN (
     ma_nguoi_nhan CHAR(6) PRIMARY KEY,
     hoten NVARCHAR(100) NOT NULL,
-    cccd CHAR(12) NOT NULL,
+    cccd CHAR(12),
     sdt VARCHAR(10) NOT NULL,
     gioi_tinh NVARCHAR(3) NOT NULL,
 	ngay_sinh DATE NOT NULL,
@@ -58,7 +57,7 @@ CREATE TABLE BENH_VIEN (
     ma_bv CHAR(3) PRIMARY KEY,
     ten_bv NVARCHAR(100) NOT NULL,
     dia_chi NVARCHAR(100) NOT NULL,
-    sdt VARCHAR(10) NOT NULL
+    sdt VARCHAR(11) NOT NULL
 );
 -- Tạo bảng CUNG_CAP
 CREATE TABLE CUNG_CAP (
@@ -79,9 +78,7 @@ ALTER TABLE TUI_MAU ADD
 	CONSTRAINT FK_NN_MAU 
 	FOREIGN KEY (ma_nguoi_nhan) REFERENCES NGUOI_NHAN (ma_nguoi_nhan),
 	CONSTRAINT FK_KHO_MAU 
-	FOREIGN KEY (ma_kho) REFERENCES KHO (ma_kho),
-	CONSTRAINT FK_BV_MAU 
-	FOREIGN KEY (ma_bv) REFERENCES BENH_VIEN (ma_bv)
+	FOREIGN KEY (ma_kho) REFERENCES KHO (ma_kho)
 
 ALTER TABLE NHAN_VIEN ADD 
 	CONSTRAINT FK_KHO_NV 
