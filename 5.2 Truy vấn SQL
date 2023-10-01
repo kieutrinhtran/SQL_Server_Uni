@@ -1,0 +1,48 @@
+--5.3.1 TRUY VẤN MỘT BẢNG: Cho biết mã người nhận, họ tên, cccd, ngày sinh của những người hiến có giới tính nữ 
+SELECT ma_nguoi_hien, hoten, cccd, ngay_sinh
+FROM NGUOI_HIEN
+WHERE gioi_tinh = N'Nữ';
+
+--5.3.2 TRUY VẤN NHIỀU BẢNG: Cho biết danh sách họ tên, ngày sinh, giới tính của những người nhận máu tại các bệnh viện
+SELECT NN.hoten, NN.ngay_sinh, NN.gioi_tinh, BV.ten_bv
+FROM NGUOI_NHAN NN
+JOIN NHAN_MAU NM ON NM.ma_nguoi_nhan = NN.ma_nguoi_nhan
+JOIN BENH_VIEN BV ON BV.ma_bv= NM.ma_bv;
+
+--5.3.3 TRUY VẤN CÓ ĐIỀU KIỆN: Cho biết danh sách họ tên, ngày sinh, giới tính của những người hiến máu có nhóm máu A+, hiến tại bệnh viện Từ Dũ
+SELECT hoten, ngay_sinh, gioi_tinh 
+FROM NGUOI_HIEN
+WHERE nhom_mau = 'A+' AND ma_nguoi_hien IN (
+    SELECT ma_nguoi_hien
+    FROM TUI_MAU
+    WHERE ma_kho IN (
+        SELECT ma_kho
+        FROM CUNG_CAP
+        WHERE ma_bv = '001'
+    )
+);
+
+
+--5.3.5 TRUY VẤN GOM NHÓM: Cho biết tổng thể tích của những túi máu có cùng nhóm máu
+SELECT NH.nhom_mau, SUM(TM.the_tich) AS tong_thetich
+FROM TUI_MAU TM 
+JOIN NGUOI_HIEN NH ON NH.ma_nguoi_hien = TM.ma_nguoi_hien
+GROUP BY NH.nhom_mau;
+
+--5.3.6 TRUY VẤN HAVING Cho biết danh sách các nhóm máu và số người hiến máu trong mỗi nhóm máu, nhưng chỉ bao gồm các nhóm máu có ít nhất 2 người hiến máu
+SELECT nhom_mau, COUNT(*) AS so_nguoi_hien
+FROM NGUOI_HIEN
+GROUP BY nhom_mau
+HAVING COUNT(*) >= 2;
+
+
+
+--Cho biết nhóm máu và số người hiến máu của  trong mỗi loại thể tích, nhưng chỉ bao gồm các thể tích có ít nhất 2 người hiến máu
+--còn lỗi 
+SELECT nhom_mau, COUNT(*) AS so_nguoi_hien
+FROM TUI_MAU TM
+JOIN NGUOI_HIEN NH ON NH.ma_nguoi_hien = TM.ma_nguoi_hien
+GROUP BY TM.the_tich 
+HAVING COUNT(*) >= 2;
+
+
