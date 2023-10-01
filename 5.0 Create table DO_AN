@@ -2,36 +2,35 @@ CREATE DATABASE DO_AN
 GO
 USE DO_AN
 
--- Tạo bảng KHO
+ --Tạo bảng KHO
 CREATE TABLE KHO (
     ma_kho CHAR(6) PRIMARY KEY,
     ten_kho NVARCHAR(100) NOT NULL,
     manv_ptr CHAR(6) NOT NULL
 );
--- Tạo bảng NHAN_VIEN
+ --Tạo bảng NHAN_VIEN
 CREATE TABLE NHAN_VIEN (
     ma_nv CHAR(6) PRIMARY KEY,
     hoten NVARCHAR(100) NOT NULL,
-    sdt VARCHAR(10) NOT NULL,
-    gioi_tinh NVARCHAR(3) NOT NULL,
+    sdt VARCHAR(10) NOT NULL CHECK (sdt LIKE '[0-9]%'),
+    gioi_tinh NVARCHAR(3) NOT NULL CHECK (gioi_tinh IN (N'Nam', N'Nữ')),
     ngay_sinh DATE NOT NULL,
     ma_kho CHAR(6) --Khóa ngoại chỉ đến bảng KHO,
 );
--- Tạo bảng NGUOI_HIEN
+ --Tạo bảng NGUOI_HIEN
 CREATE TABLE NGUOI_HIEN (
     ma_nguoi_hien CHAR(6) PRIMARY KEY,
     hoten NVARCHAR(100) NOT NULL,
-    cccd CHAR(12) NOT NULL,
-    sdt INT NOT NULL,
+    cccd CHAR(12) NOT NULL CHECK (cccd LIKE '[0-9]%'),
+    sdt VARCHAR(10) NOT NULL CHECK (sdt LIKE '[0-9]%'),
     ngay_sinh DATE NOT NULL,
-    gioi_tinh NVARCHAR(3) NOT NULL,
-    nhom_mau VARCHAR(3) NOT NULL,
+    gioi_tinh NVARCHAR(3) NOT NULL CHECK (gioi_tinh IN (N'Nam', N'Nữ')),
+    nhom_mau VARCHAR(3) NOT NULL CHECK (nhom_mau IN ('A+', 'A-', 'B+', 'B-', 'O+', 'O-', 'AB-','AB+')),,
     dia_chi NVARCHAR(100)
 );
--- Tạo bảng TUI_MAU
+ --Tạo bảng TUI_MAU
 CREATE TABLE TUI_MAU (
     ma_mau CHAR(6) PRIMARY KEY,
-    hsd DATE NOT NULL,
     tinh_trang BIT NOT NULL,
     the_tich REAL NOT NULL,
     can_nang REAL NOT NULL,
@@ -41,31 +40,31 @@ CREATE TABLE TUI_MAU (
     ma_nguoi_nhan CHAR(6), --Khóa ngoại chỉ đến bảng NGUOI_NHAN 
     ma_kho CHAR(6), --Khóa ngoại chỉ đến bảng KHO
 );
--- Tạo bảng NGUOI_NHAN
+ --Tạo bảng NGUOI_NHAN
 CREATE TABLE NGUOI_NHAN (
     ma_nguoi_nhan CHAR(6) PRIMARY KEY,
     hoten NVARCHAR(100) NOT NULL,
-    cccd CHAR(12),
-    sdt VARCHAR(10) NOT NULL,
-    gioi_tinh NVARCHAR(3) NOT NULL,
+    cccd CHAR(12) CHECK (cccd LIKE '[0-9]%'),
+    sdt VARCHAR(10) NOT NULL CHECK (sdt LIKE '[0-9]%'),
+    gioi_tinh NVARCHAR(3) NOT NULL CHECK (gioi_tinh IN (N'Nam', N'Nữ')),
 	ngay_sinh DATE NOT NULL,
-    nhom_mau VARCHAR(3) NOT NULL,
+    nhom_mau VARCHAR(3) NOT NULL CHECK (nhom_mau IN ('A+', 'A-', 'B+', 'B-', 'O+', 'O-', 'AB-','AB+')),,
     dia_chi NVARCHAR(100)
 );
--- Tạo bảng BENH_VIEN
+ --Tạo bảng BENH_VIEN
 CREATE TABLE BENH_VIEN (
     ma_bv CHAR(3) PRIMARY KEY,
     ten_bv NVARCHAR(100) NOT NULL,
     dia_chi NVARCHAR(100) NOT NULL,
-    sdt VARCHAR(11) NOT NULL
+    sdt VARCHAR(11) NOT NULL CHECK (sdt LIKE '[0-9]%'),
 );
--- Tạo bảng CUNG_CAP
+ --Tạo bảng CUNG_CAP
 CREATE TABLE CUNG_CAP (
     ma_kho CHAR(6),--Khóa chính của bảng CUNG_CAP được truy vấn từ bảng KHO
     ma_bv CHAR(6)--Khóa chính của bảng CUNG_CAP được truy vấn từ bảng BENH_VIEN
     PRIMARY KEY(ma_kho,ma_bv)
 );
--- Tạo bảng NHAN_MAU
+ --Tạo bảng NHAN_MAU
 CREATE TABLE NHAN_MAU (
     ma_bv CHAR(6),--Khóa chính của bảng NHAN_MAU được truy vấn từ bảng BENH_VIEN
     ma_nguoi_nhan CHAR(6)--Khóa chính của bảng NHAN_MAU được truy vấn từ bảng NGUOI_NHAN 
